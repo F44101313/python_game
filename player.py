@@ -1,4 +1,4 @@
-import pygame
+import pygame #player.py
 import math
 from bullet import Bullet
 from config import (
@@ -16,11 +16,14 @@ FIRERATE_MIN_MS = 140       # 射速升級的最小間隔(避免0)
 class Player(pygame.sprite.Sprite):
     shared_money = 0  # 共用金錢
 
-    def __init__(self, x, y, controls, initial_angle, min_angle, max_angle):
+    def __init__(self, x, y, controls, initial_angle, min_angle, max_angle, name="Player1"):
         super().__init__()
         self.base_image = PLAYER_IMG.copy()
         self.image = self.base_image.copy()
         self.rect = self.image.get_rect(center=(x, y))
+
+        # 玩家名稱
+        self.name = name
 
         # 操作
         self.controls = controls
@@ -159,3 +162,9 @@ class Player(pygame.sprite.Sprite):
             p2 = muzzle + dirv.rotate(28) * 12
             p3 = muzzle + dirv.rotate(-28) * 12
             pygame.draw.polygon(surface, (255, 240, 120), (p1, p2, p3))
+
+    def draw_name(self, surface, font):
+        text_surf = font.render(self.name, True, (0, 0, 0))
+        x = self.rect.centerx - text_surf.get_width() // 2
+        y = self.rect.top - 30  # 在塔上方 30 px
+        surface.blit(text_surf, (x, y))    
