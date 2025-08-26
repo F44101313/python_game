@@ -6,7 +6,7 @@ import os
 
 # 讀取路徑
 def load_path(level):
-    path_file = f"path{level}.json"
+    path_file = os.path.join("path", f"path{level}.json")
     if not os.path.exists(path_file):
         return []
     data = json.load(open(path_file, "r", encoding="utf-8"))
