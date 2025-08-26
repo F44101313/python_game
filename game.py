@@ -42,9 +42,9 @@ class Game:
         self.paused = False  
 
         # 音量
-        self.bgm_volume = 0.015
-        self.sfx_volume = 0.01
-        self.sfx_power_volume = 0.02
+        self.bgm_volume = 0.02
+        self.sfx_volume = 0.13
+        self.sfx_power_volume = 0.15
 
         # 音樂
         self.bgm_menu = "sound/bgm/menu.ogg"
