@@ -150,8 +150,10 @@ class Game:
                     if buttons["ok"].collidepoint(mx,my):
                         self.state="menu"
                 elif self.paused:
-                    resume_rect = pygame.Rect(WIDTH//2-80, HEIGHT//2-20, 160,40)
-                    if resume_rect.collidepoint(mx,my):
+                    if self.pause_buttons["resume"].collidepoint(mx,my):
+                        self.paused = False
+                    elif self.pause_buttons["restart"].collidepoint(mx,my):
+                        self.new_game(restart_level=True)
                         self.paused = False
 
 
@@ -327,8 +329,16 @@ class Game:
                 overlay = pygame.Surface((WIDTH,HEIGHT),pygame.SRCALPHA)
                 overlay.fill((0,0,0,180))
                 self.screen.blit(overlay,(0,0))
-                resume_rect = pygame.Rect(WIDTH//2-80, HEIGHT//2-20,160,40)
-                draw_button(self.screen,resume_rect,"RESUME",font)    
+
+                # Resume 按鈕
+                resume_rect = pygame.Rect(WIDTH//2-80, HEIGHT//2-40,160,40)
+                draw_button(self.screen,resume_rect,"RESUME",font)
+
+                # Restart 按鈕
+                restart_rect = pygame.Rect(WIDTH//2-80, HEIGHT//2+20,160,40)
+                draw_button(self.screen,restart_rect,"RESTART",font)
+
+                self.pause_buttons = {"resume":resume_rect,"restart":restart_rect}       
 
         elif self.state in ["win", "lose"]:
             if self.state=="win" and self.level==3:
