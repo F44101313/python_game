@@ -198,7 +198,7 @@ def draw_story(screen, top=160, side_margin=72, line_spacing=46, letter_spacing=
 
 def draw_tutorial(screen):
     screen.blit(TUTORIAL_BG, (0, 0))
-    start_y = HEIGHT // 4
+    start_y = HEIGHT // 5
     line_spacing = 30
     side_margin = 40
     lines = [
