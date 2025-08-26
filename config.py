@@ -23,6 +23,10 @@ font = pygame.font.Font("Font/BoutiqueBitmap9x9_Bold_1.9.ttf", 18)
 # 新增大字體給標題
 title_font = pygame.font.Font("Font/BoutiqueBitmap9x9_Bold_1.9.ttf", 48)  # 48 可依需求調整大小
 title_font_small = pygame.font.Font("Font/BoutiqueBitmap9x9_Bold_1.9.ttf", 30)  # 48 可依需求調整大小
+#
+ui_price_font = pygame.font.Font("Font/BoutiqueBitmap9x9_Bold_1.9.ttf", 9)
+ui_lv_font    = pygame.font.Font("Font/BoutiqueBitmap9x9_Bold_1.9.ttf", 9)
+ui_name_font  = pygame.font.Font("Font/BoutiqueBitmap9x9_Bold_1.9.ttf", 10)
 
 # --- 金錢與升級 ---
 ENEMY_REWARD = {10:5, 20:10, 30:15, 40:20, 50:25, 60:30, 70:35, 80:40, 90:45, 100:50}
