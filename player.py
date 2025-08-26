@@ -64,10 +64,10 @@ class Player(pygame.sprite.Sprite):
             return
 
         if Player.shared_money >= UPGRADE_COST:
-            self.sfx_buy.play()
             Player.shared_money -= UPGRADE_COST
             self.bullet_speed += UPGRADE_SPEED_INC
             self.bullet_damage += UPGRADE_DAMAGE_INC
+            self.sfx_buy.play()
             self.level += 1
             self._last_upgrade = now
         else:
