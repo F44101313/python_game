@@ -82,7 +82,7 @@ class Player(pygame.sprite.Sprite):
         if not self._can_pay(cost): return False
         Player.shared_money -= cost
         self.lv_firerate += 1
-        self.shoot_delay = max(FIRERATE_MIN_MS, self.shoot_delay - 40)  # 每級快一點
+        self.shoot_delay = max(FIRERATE_MIN_MS, self.shoot_delay - 60)  # 每級快一點
         self.cost_firerate += COST_INC
         self.sfx_buy.play()
         return True
