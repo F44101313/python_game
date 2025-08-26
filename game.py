@@ -305,11 +305,9 @@ class Game:
             draw_game_screen(self.screen,self.all_sprites,self.enemies,self.castle,self.boss,Player.shared_money,level=self.level,enemy_bullets=self.enemy_bullets)
             self.powerups.draw(self.screen); self.explosions.draw(self.screen)
 
-            # 玩家等級顯示
-            p1,p2 = self.players.sprites()
-            lv1_text = font.render(f"Player 1 lv.{p1.total_level}", True, WHITE)
-            lv2_text = font.render(f"Player 2 lv.{p2.total_level}", True, WHITE)
-            self.screen.blit(lv1_text,(10,35)); self.screen.blit(lv2_text,(10,60))
+            # 在各自塔上方畫玩家名字
+            for player in self.players:
+                player.draw_name(self.screen, font)
 
             # 升級面板
             self.panel_left.draw(self.screen, Player.shared_money)
