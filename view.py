@@ -38,7 +38,7 @@ BOSS_IMGS = [
 BOSS_IMGS = [pygame.transform.scale(img, (200, 200)) for img in BOSS_IMGS]
 
 ENEMY_IMGS = [
-    pygame.image.load(f"Image/enemy/enemys{i}-{j}.png") for i in range(1, 4) for j in range(1, 4)
+    pygame.image.load(f"Image/enemy/enemy{i}-{j}.png") for i in range(1, 4) for j in range(1, 4)
 ]
 ENEMY_IMGS = [pygame.transform.scale(img, (60, 70)) for img in ENEMY_IMGS]
 
@@ -122,6 +122,15 @@ def draw_menu(screen):
     draw_button(screen, howto_rect, "How to Play", font)
 
     return {"start": start_rect, "howto": howto_rect}
+
+def draw_pause_screen(screen):
+    screen.fill((30, 30, 30))
+    title = font.render("PAUSED", True, (255, 255, 255))
+    screen.blit(title, (WIDTH//2 - title.get_width()//2, HEIGHT//2 - 60))
+
+    resume_rect = pygame.Rect(WIDTH//2 - 80, HEIGHT//2, 160, 50)
+    draw_button(screen, resume_rect, "RESUME", font)
+    return {"resume": resume_rect}
 
 def draw_end_screen(screen, win=True, level=1, final_level=3):
     screen.blit(MENU_BG, (0, 0))
@@ -259,10 +268,6 @@ def draw_game_screen(screen, all_sprites, enemies, castle, boss, money,
 
     # 金錢 / 關卡
     money_text = font.render(f"Money: {money}", True, WHITE)
-    screen.blit(money_text, (10, 10))
-    level_text = font.render(f"Level {level}", True, WHITE)
-    screen.blit(level_text, (10, HEIGHT - 30))
-
     screen.blit(money_text, (10, 10))
     level_text = font.render(f"Level {level}", True, WHITE)
     screen.blit(level_text, (10, HEIGHT - 30))
