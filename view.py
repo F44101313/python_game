@@ -143,7 +143,7 @@ def draw_end_screen(screen, win=True, level=1, final_level=3):
             prompt = "Press SPACE to title"
     else:
         msg = "LOSE!"
-        prompt = "Press SPACE to continue."
+        prompt = "Press SPACE to restart."
 
     text = font.render(msg, True, WHITE)
     prompt_text = font.render(prompt, True, WHITE)
