@@ -57,7 +57,7 @@ def render_chinese_text_surface(text, font, color, spacing=0):
 
 # ================== 路徑繪製 ==================
 def draw_path_polyline(screen, level=1):
-    path_file = f"path{level}.json"
+    path_file = os.path.join("path", f"path{level}.json")
     if not os.path.exists(path_file):
         return
     try:
@@ -218,7 +218,7 @@ def draw_game_screen(screen, all_sprites, enemies, castle, boss, money,
     bg = LEVEL_BGS[min(level-1,len(LEVEL_BGS)-1)]
     screen.blit(bg, (0,0))
     if show_path:
-        draw_path_polyline(screen, level)
+        draw_path_polyline(screen, level=level)
     # 城堡
     castle_img = CASTLE_IMGS[level - 1] if level - 1 < len(CASTLE_IMGS) else CASTLE_IMGS[0]
     screen.blit(castle_img, CASTLE_POS)
