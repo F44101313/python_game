@@ -64,7 +64,7 @@ class Player(pygame.sprite.Sprite):
         self.max_level = 5
 
         self.sfx_buy = pygame.mixer.Sound("sound/sound_effect/buy.ogg")
-        self.sfx_buy.set_volume(0.02)
+        self.sfx_buy.set_volume(0.2)
 
     # ---------- 計算總等級（從 1 起算） ----------
     @property
