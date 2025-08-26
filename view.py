@@ -203,6 +203,7 @@ def draw_tutorial(screen):
     side_margin = 40
     lines = [
         "esc：暫停遊戲",
+        " ",
         "P1：",
         "UP、DOWN：調整守護塔射擊方向",
         "LEFT、RIGHT：切換升級項目",
@@ -220,7 +221,7 @@ def draw_tutorial(screen):
         text_surface = render_chinese_text_surface(line, font, WHITE, spacing=4)
         screen.blit(text_surface, (side_margin, start_y + i * line_spacing))
 
-    ok_rect = pygame.Rect(WIDTH // 2 - 100, HEIGHT // 2 + 100, 120, 40)
+    ok_rect = pygame.Rect(WIDTH // 2 - 60, HEIGHT // 2 + 220, 120, 40)
     draw_button(screen, ok_rect, "OK", font)
     return {"ok": ok_rect}
 
