@@ -1,5 +1,5 @@
 import pygame
-from config import WHITE, WIDTH
+from config import WHITE, WIDTH, BLACK
 
 # 每關城堡圖片，請確保 Image/castle/ 下有 castle0.png, castle1.png, castle2.png
 CASTLE_IMGS = [
