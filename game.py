@@ -1,7 +1,7 @@
-import pygame, sys, random
+import pygame, sys, random #game.py
 from config import *
 from player import Player
-from enemy import Enemy, Boss
+from enemy import Enemy, Boss, load_path
 from bullet import Bullet
 from castle import Castle
 from view import draw_menu, draw_end_screen, draw_game_screen, draw_story, draw_tutorial
@@ -176,7 +176,13 @@ class Game:
         if not self.boss_spawned and random.random() < 0.01:
             enemy_choice = random.choice(ENEMY_POOL[self.level])
             stats = ENEMY_STATS[enemy_choice]
-            enemy = Enemy(hp=stats["hp"], speed=stats["speed"], type_index=stats["type_index"])
+            enemy_path = load_path(self.level)
+            enemy = Enemy(
+                hp=stats["hp"],
+                speed=stats["speed"],
+                type_index=stats["type_index"],
+                path=enemy_path
+            )
             self.enemies.add(enemy)
             self.all_sprites.add(enemy)
 
@@ -185,7 +191,8 @@ class Game:
         if seconds > 30 and not self.boss_spawned:
             hp_map = {1:500, 2:800, 3:1000}
             speed_map = {1:60, 2:80, 3:100}
-            self.boss = Boss(hp=hp_map[self.level], speed=speed_map[self.level])
+            boss_path = load_path(self.level)
+            self.boss = Boss(hp=hp_map[self.level], speed=speed_map[self.level], path=boss_path)
             self.enemies.add(self.boss)
             self.all_sprites.add(self.boss)
             self.boss_spawned = True
