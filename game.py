@@ -9,7 +9,7 @@ from power import Power
 from explosion import Explosion
 
 # 敵人池與屬性
-ENEMY_POOL = {1:[1,2,3], 2:[4,5,6], 3:[7,8,9]}
+ENEMY_POOL = {1:[1,1,2,2,3], 2:[4,4,5,5,6], 3:[7,7,8,8,9]}
 ENEMY_STATS = {
     1: {"hp":10,"speed":100,"type_index":0},
     2: {"hp":40,"speed":80,"type_index":1},
@@ -90,7 +90,7 @@ class Game:
         self.all_sprites.add(player1, player2)
         Player.shared_money = 0
 
-        castle_hp_map = {1: 700, 2: 1000, 3: 1000}
+        castle_hp_map = {1: 700, 2: 1000, 3: 1400}
         self.castle = Castle(level=self.level, hp=castle_hp_map.get(self.level, 500))
 
         self.boss_spawned = False
@@ -152,6 +152,11 @@ class Game:
         if self.castle.is_destroyed() and self.end_time is None:
             self.explosions.add(Explosion(self.castle.rect.center, size=120, duration=1000))
             self.sfx_explode_big.play()
+
+            # 移除城堡，讓它不再被畫出來
+            if self.castle in self.all_sprites:
+                self.castle.kill()
+
             self.end_time = now
             self.next_state = "lose"
 
@@ -178,8 +183,8 @@ class Game:
         # 生成 Boss
         seconds = (now - self.start_ticks) // 1000
         if seconds > 30 and not self.boss_spawned:
-            hp_map = {1:100, 2:120, 3:150}
-            speed_map = {1:55, 2:60, 3:50}
+            hp_map = {1:500, 2:800, 3:1000}
+            speed_map = {1:60, 2:80, 3:100}
             self.boss = Boss(hp=hp_map[self.level], speed=speed_map[self.level])
             self.enemies.add(self.boss)
             self.all_sprites.add(self.boss)
@@ -304,6 +309,9 @@ class Game:
                 draw_end_screen(self.screen, win=True, level=3, final_level=3)
             else:
                 self.play_bgm(self.bgm_win if self.state=="win" else self.bgm_lose)
+                draw_end_screen(self.screen, win=(self.state=="win"), level=self.level)
+
+        pygame.display.flip()
                 draw_end_screen(self.screen, win=(self.state=="win"), level=self.level)
 
         pygame.display.flip()
