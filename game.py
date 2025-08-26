@@ -85,8 +85,9 @@ class Game:
         self.explosions = pygame.sprite.Group()
 
         # 兩個玩家
-        player1 = Player(WIDTH-100, HEIGHT-200, (pygame.K_DOWN, pygame.K_UP), 180, 135, 225)
-        player2 = Player(100, 300, (pygame.K_w, pygame.K_s), 0, -45, 45)
+
+        player1 = Player(WIDTH-100, HEIGHT-200, (pygame.K_DOWN, pygame.K_UP), 180, 130, 220)
+        player2 = Player(100, 300, (pygame.K_w, pygame.K_s), 0, -50, 40)
         self.players.add(player1, player2)
         self.all_sprites.add(player1, player2)
         Player.shared_money = 0
