@@ -4,7 +4,7 @@ from player import Player
 from enemy import Enemy, Boss, load_path
 from bullet import Bullet
 from castle import Castle
-from view import draw_menu, draw_end_screen, draw_game_screen, draw_story, draw_tutorial
+from view import draw_menu, draw_end_screen, draw_game_screen, draw_story, draw_tutorial, draw_button
 from power import Power
 from explosion import Explosion
 
@@ -40,6 +40,7 @@ class Game:
         self._next_upgrade_p2 = 0
         self.end_time = None
         self.next_state = None
+        self.paused = False  # 暫停狀態
 
         # BGM 音量（0.0~1.0）
         self.bgm_volume = 0.015  # 調整背景音樂音量
@@ -116,35 +117,46 @@ class Game:
             if event.type == pygame.QUIT:
                 self.running = False
             elif event.type == pygame.KEYDOWN:
-                if self.state in ["win", "lose"]:
-                    if event.key == pygame.K_SPACE:
-                        if self.state == "win":
-                            if self.level < 3:
+                # 暫停
+                if event.key == pygame.K_ESCAPE:
+                    if self.state=="playing":
+                        self.paused = not self.paused
+                # 遊戲結束
+                if self.state in ["win","lose"]:
+                    if event.key==pygame.K_SPACE:
+                        if self.state=="win":
+                            if self.level<3:
                                 self.level += 1
                                 self.new_game(restart_level=True)
                             else:
-                                self.state = "menu"
+                                self.state="menu"
                         else:
                             self.new_game(restart_level=True)
-            elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-                mx, my = event.pos
-                if self.state == "menu":
+            elif event.type == pygame.MOUSEBUTTONDOWN and event.button==1:
+                mx,my = event.pos
+                # menu
+                if self.state=="menu":
                     buttons = draw_menu(self.screen)
-                    if buttons["start"].collidepoint(mx, my):
-                        self.state = "story"
-                    elif buttons["howto"].collidepoint(mx, my):
-                        self.state = "tutoriel"
-                elif self.state == "story":
+                    if buttons["start"].collidepoint(mx,my):
+                        self.state="story"
+                    elif buttons["howto"].collidepoint(mx,my):
+                        self.state="tutoriel"
+                elif self.state=="story":
                     buttons = draw_story(self.screen)
-                    if buttons["go"].collidepoint(mx, my):
+                    if buttons["go"].collidepoint(mx,my):
                         self.new_game()
-                elif self.state == "tutoriel":
+                elif self.state=="tutoriel":
                     buttons = draw_tutorial(self.screen)
-                    if buttons["ok"].collidepoint(mx, my):
-                        self.state = "menu"
+                    if buttons["ok"].collidepoint(mx,my):
+                        self.state="menu"
+                elif self.paused:
+                    resume_rect = pygame.Rect(WIDTH//2-80, HEIGHT//2-20, 160,40)
+                    if resume_rect.collidepoint(mx,my):
+                        self.paused = False
+
 
     def update(self, dt):
-        if self.state != "playing":
+        if self.state!="playing" or self.paused:
             return
         now = pygame.time.get_ticks()
 
@@ -309,6 +321,14 @@ class Game:
             lv2_text = font.render(f"Player 2 lv.{p2.level}", True, WHITE)
             self.screen.blit(lv1_text, (10, 35))
             self.screen.blit(lv2_text, (10, 60))
+
+        # 暫停頁面
+            if self.paused:
+                overlay = pygame.Surface((WIDTH,HEIGHT),pygame.SRCALPHA)
+                overlay.fill((0,0,0,180))
+                self.screen.blit(overlay,(0,0))
+                resume_rect = pygame.Rect(WIDTH//2-80, HEIGHT//2-20,160,40)
+                draw_button(self.screen,resume_rect,"RESUME",font)    
 
         elif self.state in ["win", "lose"]:
             if self.state=="win" and self.level==3:
