@@ -16,12 +16,12 @@ ENEMY_STATS = {
     1: {"hp":10,"speed":100,"type_index":0},
     2: {"hp":40,"speed":80,"type_index":1},
     3: {"hp":20,"speed":90,"type_index":2},
-    4: {"hp":30,"speed":125,"type_index":3},
-    5: {"hp":70,"speed":90,"type_index":4},
-    6: {"hp":50,"speed":110,"type_index":5},
-    7: {"hp":50,"speed":150,"type_index":6},
-    8: {"hp":100,"speed":100,"type_index":7},
-    9: {"hp":80,"speed":125,"type_index":8}
+    4: {"hp":25,"speed":125,"type_index":3},
+    5: {"hp":60,"speed":90,"type_index":4},
+    6: {"hp":40,"speed":110,"type_index":5},
+    7: {"hp":25,"speed":125,"type_index":6},
+    8: {"hp":60,"speed":90,"type_index":7},
+    9: {"hp":40,"speed":110,"type_index":8}
 }
 
 class Game:
