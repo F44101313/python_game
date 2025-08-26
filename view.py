@@ -202,13 +202,16 @@ def draw_tutorial(screen):
     line_spacing = 30
     side_margin = 40
     lines = [
+        "esc：暫停遊戲",
         "P1：",
         "UP、DOWN：調整守護塔射擊方向",
-        "M：升級武器(更高傷害 + 更快速度)",
+        "LEFT、RIGHT：切換升級項目",
+        "M：升級武器",
         " ",
         "P2：",
         "W、S：調整守護塔射擊方向",
-        "E：升級武器(更高傷害 + 更快速度)",
+        "A、D：切換升級項目",
+        "E：升級武器",
         " ",
         "射擊來襲擊古城的敵人",
         "並最後擊殺boss即獲勝"
@@ -217,7 +220,7 @@ def draw_tutorial(screen):
         text_surface = render_chinese_text_surface(line, font, WHITE, spacing=4)
         screen.blit(text_surface, (side_margin, start_y + i * line_spacing))
 
-    ok_rect = pygame.Rect(WIDTH // 2 - 60, HEIGHT // 2 + 100, 120, 40)
+    ok_rect = pygame.Rect(WIDTH // 2 - 100, HEIGHT // 2 + 100, 120, 40)
     draw_button(screen, ok_rect, "OK", font)
     return {"ok": ok_rect}
 
