@@ -2,7 +2,7 @@
 import pygame
 import json
 import os
-from config import WIDTH, HEIGHT, WHITE, font, title_font, YELLOW, title_font_small
+from config import WIDTH, HEIGHT, WHITE, font, title_font, YELLOW, title_font_small, BLACK
 
 # ================== 背景載入 ==================
 def load_bg(path):
@@ -271,7 +271,7 @@ def draw_game_screen(screen, all_sprites, enemies, castle, boss, money,
             )
 
     # 金錢 / 關卡
-    money_text = font.render(f"Money: {money}", True, WHITE)
+    money_text = font.render(f"Money: {money}", True, BLACK)
     screen.blit(money_text, (10, 10))
-    level_text = font.render(f"Level {level}", True, WHITE)
+    level_text = font.render(f"Level {level}", True, BLACK)
     screen.blit(level_text, (10, HEIGHT - 30))
