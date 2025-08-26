@@ -90,7 +90,7 @@ class Game:
         self.all_sprites.add(player1, player2)
         Player.shared_money = 0
 
-        castle_hp_map = {1: 700, 2: 1000, 3: 1400}
+        castle_hp_map = {1: 700, 2: 1000, 3: 1100}
         self.castle = Castle(level=self.level, hp=castle_hp_map.get(self.level, 500))
 
         self.boss_spawned = False
