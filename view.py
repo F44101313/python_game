@@ -55,32 +55,30 @@ def render_chinese_text_surface(text, font, color, spacing=0):
         x += img.get_width() + spacing
     return surface
 
-def draw_path_polyline(screen):
-    import os, json, math, pygame
-    if not os.path.exists("path.json"):
+# ================== 路徑繪製 ==================
+def draw_path_polyline(screen, level=1):
+    path_file = f"path{level}.json"
+    if not os.path.exists(path_file):
         return
     try:
-        data = json.load(open("path.json","r",encoding="utf-8"))
-        pts = [pygame.Vector2(float(x), float(y)) for x, y in data.get("points", [])]
+        data = json.load(open(path_file,"r",encoding="utf-8"))
+        pts = [pygame.Vector2(x, y) for x, y in data.get("points", [])]
     except Exception:
         return
     if len(pts) < 2:
         return
 
-    # 參數（可微調）
+    import math
     road_width   = 26
     border_width = road_width + 6
-    road_color   = (230, 210, 150)  # 不透明畫，最後整層調透明
+    road_color   = (230, 210, 150)
     border_color = (205, 185, 130)
-
-    W, H = screen.get_size()
-    overlay = pygame.Surface((W, H), pygame.SRCALPHA)
+    overlay = pygame.Surface((WIDTH, HEIGHT), pygame.SRCALPHA)
 
     def draw_capsule(surf, color, p0, p1, width):
-        """把 p0→p1 畫成圓頭長方形（膠囊）"""
         v = pygame.Vector2(p1) - pygame.Vector2(p0)
         L = v.length()
-        if L == 0:  # 單點
+        if L == 0:
             pygame.draw.circle(surf, color, (int(p0.x), int(p0.y)), width//2)
             return
         ang = math.degrees(math.atan2(v.y, v.x))
@@ -91,20 +89,16 @@ def draw_path_polyline(screen):
         rect = pygame.transform.rotate(rect, -ang)
         surf.blit(rect, rect.get_rect(center=((p0.x+p1.x)/2, (p0.y+p1.y)/2)))
 
-    # 外框（比主體寬一點）
     for a, b in zip(pts[:-1], pts[1:]):
         draw_capsule(overlay, border_color, a, b, border_width)
-    # 主體
     for a, b in zip(pts[:-1], pts[1:]):
         draw_capsule(overlay, road_color, a, b, road_width)
 
-    # 可選：一條淡淡中線
     try:
         pygame.draw.aalines(overlay, (240, 230, 180), False, pts, blend=1)
     except:
         pass
 
-    # 最後整層統一透明，避免局部疊加變深
     overlay.set_alpha(200)
     screen.blit(overlay, (0, 0))
 
@@ -221,11 +215,10 @@ def draw_tutorial(screen):
 def draw_game_screen(screen, all_sprites, enemies, castle, boss, money,
                      show_path=True, level=1, enemy_bullets=None):
     # 依關卡套背景
-    bg = LEVEL_BGS[min(level - 1, len(LEVEL_BGS) - 1)]
-    screen.blit(bg, (0, 0))
+    bg = LEVEL_BGS[min(level-1,len(LEVEL_BGS)-1)]
+    screen.blit(bg, (0,0))
     if show_path:
-        draw_path_polyline(screen)
-
+        draw_path_polyline(screen, level)
     # 城堡
     castle_img = CASTLE_IMGS[level - 1] if level - 1 < len(CASTLE_IMGS) else CASTLE_IMGS[0]
     screen.blit(castle_img, CASTLE_POS)
@@ -266,6 +259,10 @@ def draw_game_screen(screen, all_sprites, enemies, castle, boss, money,
 
     # 金錢 / 關卡
     money_text = font.render(f"Money: {money}", True, WHITE)
+    screen.blit(money_text, (10, 10))
+    level_text = font.render(f"Level {level}", True, WHITE)
+    screen.blit(level_text, (10, HEIGHT - 30))
+
     screen.blit(money_text, (10, 10))
     level_text = font.render(f"Level {level}", True, WHITE)
     screen.blit(level_text, (10, HEIGHT - 30))
