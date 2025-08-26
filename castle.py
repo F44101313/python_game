@@ -44,7 +44,7 @@ class Castle(pygame.sprite.Sprite):
         pygame.draw.rect(surface, (0,255,0), (x, y, fill, bar_height))
 
         # 顯示 HP 數字
-        hp_text = font.render(f"{self.hp}/{self.max_hp}", True, WHITE)
+        hp_text = font.render(f"{self.hp}/{self.max_hp}", True, BLACK)
         surface.blit(hp_text, (self.rect.centerx - hp_text.get_width()//2, y - 20))
 
     def is_destroyed(self):
