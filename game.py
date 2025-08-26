@@ -42,7 +42,7 @@ class Game:
         self.paused = False  
 
         # 音量
-        self.bgm_volume = 0.02
+        self.bgm_volume = 0.2
         self.sfx_volume = 0.13
         self.sfx_power_volume = 0.15
 
