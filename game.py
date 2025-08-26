@@ -312,6 +312,3 @@ class Game:
                 draw_end_screen(self.screen, win=(self.state=="win"), level=self.level)
 
         pygame.display.flip()
-                draw_end_screen(self.screen, win=(self.state=="win"), level=self.level)
-
-        pygame.display.flip()
