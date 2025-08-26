@@ -44,7 +44,7 @@ class Game:
         # 音量
         self.bgm_volume = 0.2
         self.sfx_volume = 0.13
-        self.sfx_power_volume = 0.15
+        self.sfx_power_volume = 0.2
 
         # 音樂
         self.bgm_menu = "sound/bgm/menu.ogg"
