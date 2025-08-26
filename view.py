@@ -38,7 +38,7 @@ BOSS_IMGS = [
 BOSS_IMGS = [pygame.transform.scale(img, (200, 200)) for img in BOSS_IMGS]
 
 ENEMY_IMGS = [
-    pygame.image.load(f"Image/enemy/enemy{i}-{j}.png") for i in range(1, 4) for j in range(1, 4)
+    pygame.image.load(f"Image/enemy/enemys{i}-{j}.png") for i in range(1, 4) for j in range(1, 4)
 ]
 ENEMY_IMGS = [pygame.transform.scale(img, (60, 70)) for img in ENEMY_IMGS]
 
